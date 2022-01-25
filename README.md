@@ -5,20 +5,20 @@
 Um escopo dos dados do sistema foi definido como a seguir:
 
 ### ----------doctor---------- 
-    uuid id
+    id id
     string name
     string documentMedical_id
     hash password
 
 
 ### ----------patient---------- 
-    uuid id
+    id id
     string name 
     string phoneNumber
     string document_id
 
 
-### ----------medicalCare---------- 
+### ----------attendance---------- 
     int id
     uuid doctor_id 
     uuid patient_id 
