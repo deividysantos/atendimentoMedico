@@ -9,7 +9,7 @@ class Patient extends Model
     protected $table = 'patients';
 
     protected $fillable = [
-        'id', 'name', 'document_id', 'phoneNumber'
+        'id', 'name', 'document_id', 'phoneNumber', 'email'
     ];
 
     public function attendences()

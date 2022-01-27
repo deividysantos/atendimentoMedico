@@ -8,6 +8,7 @@
     id id
     string name
     string documentMedical_id
+    string email
     hash password
 
 
@@ -16,6 +17,7 @@
     string name 
     string phoneNumber
     string document_id
+    string email
 
 
 #### ----------attendance---------- 

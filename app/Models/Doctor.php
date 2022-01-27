@@ -15,7 +15,7 @@ class Doctor extends Authenticatable
     public $timestamps = false;
 
     protected $fillable = [
-        'id', 'name', 'documentMedical_id'
+        'id', 'name', 'documentMedical_id', 'email', 'password'
     ];
 
     protected $hidden = [
