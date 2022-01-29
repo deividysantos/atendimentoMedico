@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Doctor\AuthDoctorController;
+use App\Http\Controllers\Doctor\RegisterDoctorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/register/doctor', [RegisterDoctorController::class, 'postRegisterDoctor'])->name('registerDoctor');
+
+Route::post('auth/login/doctor', [AuthDoctorController::class, 'login'])->name('auth.login.doctor');
+
+Route::group([ 'middleware' => 'auth-jwt', 'prefix' => 'auth' ], function ()
+{
+    Route::post('logout', [AuthDoctorController::class, 'logout'])->name('logout');
 });

@@ -21,11 +21,15 @@ class RegisterDoctorController extends Controller
     {
         $payload = $this->makePayloadDoctor($request->all());
 
-        $entity = $this->doctorRepository->create($payload);
+        $doctorModel = $this->doctorRepository->create($payload);
+
+        $token = auth()->attempt($this->getCredentials($request));
 
         return response()->json([
             'message' => 'success, the new doctor has been registered',
-            'entity' => $entity
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
         ], 201);
     }
 
@@ -37,6 +41,14 @@ class RegisterDoctorController extends Controller
             'documentMedical_id' => $request['documentMedical_id'],
             'password' => Hash::make($request['password'])
         ];
+    }
+
+    public function getCredentials(RegisterDoctorRequest $request)
+    {
+        return( [
+            'email' => $request['email'],
+            'password' => $request['password']
+        ]);
     }
 
 
