@@ -14,7 +14,7 @@ class DoctorRepository implements IModelRepository
         $this->model = $model;
     }
 
-    public function create(array $payload):bool
+    public function create(array $payload)
     {
         $data = $this->makePayloadDoctor($payload);
 

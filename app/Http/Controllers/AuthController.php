@@ -41,15 +41,19 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(string $provider)
+    public function logoutDoctor(): \Illuminate\Http\JsonResponse
     {
+        return $this->logout('doctors');
+    }
 
-        if(!$this->authRepository->getGuard($provider))
-            return response()->json([
-                'message' => 'Provider not found',
-            ], 404);
+    public function logoutPatient(): \Illuminate\Http\JsonResponse
+    {
+        return $this->logout('patients');
+    }
 
-        auth()->logout();
+    public function logout(string $provider): \Illuminate\Http\JsonResponse
+    {
+        auth($provider)->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
