@@ -22,7 +22,7 @@ class Doctor extends Authenticatable implements JWTSubject
 
     public function attendences()
     {
-        return $this->hasMany(Attendence::class);
+        return $this->hasMany(Attendance::class);
     }
 
     public function getJWTIdentifier()

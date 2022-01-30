@@ -26,16 +26,24 @@ Route::prefix('register')->group(function ()
     ->name('registerPatient');
 
     Route::post('attendance', [RegisterAttendanceController::class, 'postRegisterAttendance'])
-        ->name('registerAttendance');
+        ->name('registerAttendance')
+        ->middleware('auth:doctors');
 });
 
-Route::prefix('auth')->group(function ()
-{
+Route::prefix('auth')->group(function () {
     Route::post('login/{provider}', [AuthController::class, 'login'])
         ->name('auth.login')
         ->where('provider', '[A-Za-z]+');
 
-    Route::post('logout/{provider}', [AuthController::class, 'logout'])
-        ->name('auth.logout')
-        ->where('provider', '[A-Za-z]+');
+    Route::middleware('auth:doctors')->group(function () {
+
+        Route::post('logout/doctor', [AuthController::class, 'logoutDoctor'])
+            ->name('auth.logout.doctor');
+    });
+
+    Route::middleware('auth:patients')->group(function (){
+        Route::post('logout/patient', [AuthController::class, 'logoutPatient'])
+            ->name('auth.logout.patient');
+    });
+
 });
