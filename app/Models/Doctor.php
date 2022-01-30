@@ -18,10 +18,7 @@ class Doctor extends Authenticatable implements JWTSubject
         'id', 'name', 'documentMedical_id', 'email', 'password'
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token'
-    ];
+    protected $hidden = ['password'];
 
     public function attendences()
     {

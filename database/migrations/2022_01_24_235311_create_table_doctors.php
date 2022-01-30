@@ -19,7 +19,6 @@ class CreateTableDoctors extends Migration
             $table->string('documentMedical_id')->unique();
             $table->string('password');
             $table->string('email')->unique();
-            $table->rememberToken();
             $table->timestamps();
         });
     }

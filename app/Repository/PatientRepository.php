@@ -2,16 +2,16 @@
 
 namespace App\Repository;
 
-use App\Models\Doctor;
+use App\Models\Patient;
 use Illuminate\Support\Facades\Hash;
 
-class DoctorRepository implements IModelRepository
+class PatientRepository implements IModelRepository
 {
-    private Doctor $model;
+    private Patient $model;
 
-    public function __construct(Doctor $model)
+    public function __construct(Patient $patient)
     {
-        $this->model = $model;
+        $this->model = $patient;
     }
 
     public function create(array $payload):bool
@@ -26,7 +26,8 @@ class DoctorRepository implements IModelRepository
         return [
             'name' => $payload['name'],
             'email' => $payload['email'],
-            'documentMedical_id' => $payload['documentMedical_id'],
+            'document_id' => $payload['document_id'],
+            'phoneNumber' => $payload['phoneNumber'],
             'password' => Hash::make($payload['password'])
         ];
     }

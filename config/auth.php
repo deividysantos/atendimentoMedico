@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'api',
+        'guard' => 'doctors',
         'passwords' => 'users',
     ],
 
@@ -41,9 +41,14 @@ return [
             'provider' => 'users',
         ],
 
-        'api' => [
+        'doctors' => [
             'driver' => 'jwt',
             'provider' => 'doctors'
+        ],
+
+        'patients' => [
+            'driver' => 'jwt',
+            'provider' => 'patients'
         ]
     ],
 
@@ -73,6 +78,11 @@ return [
         'doctors' => [
             'driver' => 'eloquent',
             'model' => App\Models\Doctor::class,
+        ],
+
+        'patients' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Patient::class,
         ]
 
         // 'users' => [
