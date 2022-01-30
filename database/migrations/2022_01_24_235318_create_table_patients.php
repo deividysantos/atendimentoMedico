@@ -19,6 +19,7 @@ class CreateTablePatients extends Migration
             $table->string('phoneNumber')->unique();
             $table->string('document_id')->unique();
             $table->string('email')->unique();
+            $table->string('password');
             $table->timestamps();
         });
     }

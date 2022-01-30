@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Doctor extends Authenticatable
+class Doctor extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory;
+    use HasFactory;
 
     protected $table ='doctors';
 
@@ -18,13 +18,20 @@ class Doctor extends Authenticatable
         'id', 'name', 'documentMedical_id', 'email', 'password'
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token'
-    ];
+    protected $hidden = ['password'];
 
     public function attendences()
     {
         return $this->hasMany(Attendence::class);
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

@@ -18,8 +18,8 @@ class CreateTableAttendances extends Migration
             $table->foreignId('doctor_id')->references('id')->on('doctors');
             $table->foreignId('patient_id')->references('id')->on('patients');
             $table->date('entryDate');
-            $table->date('exitDate');
-            $table->string('description');
+            $table->date('exitDate')->nullable();
+            $table->tinyText('description');
             $table->timestamps();
         });
     }
