@@ -15,9 +15,10 @@
 #### ----------patient---------- 
     id id
     string name 
+    string email
     string phoneNumber
     string document_id
-    string email
+    hash password
 
 
 #### ----------attendance---------- 
@@ -32,18 +33,17 @@
 
 ### Registros
 #### Registro de médicx
-#### Registro de atendimento por secretárix e médicx
-#### Registro de secretárix por médicx
+#### Registro de pacientx
+#### Registro de atendimento por médicx
 
 ----------------
 
 ### Login
 #### Login de médicx
-#### Login de secretárix
+#### Login de pacientx
 
 ----------------
 
 ### Buscas
 #### Busca de atendimentos por médicx
-#### Busca de atendimento por data
-#### Busca de atendimento por paciente
+#### Busca de atendimentos por pacientx
