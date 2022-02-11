@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Attendance;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterAttendanceRequest;
 use App\Models\Attendance;
+use App\Repository\AttendanceRepository;
 
 class RegisterAttendanceController extends Controller
 {
-    private Attendance $attendanceRepository;
+    private AttendanceRepository $attendanceRepository;
 
-    public function __construct(Attendance $attendance)
+    public function __construct(AttendanceRepository $attendance)
     {
         $this->attendanceRepository = $attendance;
     }
@@ -25,6 +26,6 @@ class RegisterAttendanceController extends Controller
             'doctorName' => $attendance->doctor->name,
             'entryDate' => $attendance->entryDate,
             'description' => $attendance->description
-        ]);
+        ], 201);
     }
 }

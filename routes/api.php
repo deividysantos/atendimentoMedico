@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Attendance\RegisterAttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Doctor\RegisterDoctorController;
@@ -16,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/login', function ()
+{
+    return response()->json(['error' => 'Unauthorized'], 401);
+})->name('login');
 
 Route::prefix('register')->group(function ()
 {
@@ -35,15 +41,32 @@ Route::prefix('auth')->group(function () {
         ->name('auth.login')
         ->where('provider', '[A-Za-z]+');
 
-    Route::middleware('auth:doctors')->group(function () {
+    Route::post('logout/{provider}', [AuthController::class, 'logout'])
+        ->name('auth.logout');
+});
 
-        Route::post('logout/doctor', [AuthController::class, 'logoutDoctor'])
-            ->name('auth.logout.doctor');
-    });
 
-    Route::middleware('auth:patients')->group(function (){
-        Route::post('logout/patient', [AuthController::class, 'logoutPatient'])
-            ->name('auth.logout.patient');
-    });
+Route::middleware('auth:doctors')->group(function (){
+    Route::post('attendances/open/{paginate?}', [AttendanceController::class, 'openAttendanceByDoctor'])
+        ->where('paginate', '[1-9]+')
+        ->name('openAttendancesByDoctor');
 
+    Route::post('attendances/closed/{paginate?}', [AttendanceController::class, 'closedAttendancesByDoctor'])
+        ->where('paginate', '[1-9]+')
+        ->name('closedAttendancesByDoctor');
+
+    Route::post('attendances/all/{paginate?}', [AttendanceController::class, 'allAttendancesByDoctor'])
+        ->where('paginate', '[1-9]+')
+        ->name('allAttendancesByDoctor');
+
+    Route::post('attendance/{id}/finish', [AttendanceController::class, 'finishAttendance'])
+        ->where('id', '[1-9]+')
+        ->name('finishAttendance');
+});
+
+Route::middleware('auth:patients')->group(function ()
+{
+    Route::post('myAttendances', [AttendanceController::class, 'attendanceByPatient'])
+        ->middleware('auth:patients')
+        ->name('attendanceByPatient');;
 });

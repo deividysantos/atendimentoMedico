@@ -53,8 +53,14 @@ class AuthController extends Controller
 
     public function logout(string $provider): \Illuminate\Http\JsonResponse
     {
-        auth($provider)->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        $userProvider = auth($provider)->check();
+
+        if($userProvider){
+            auth($provider)->logout();
+            return response()->json(['message' => 'Successfully logged out']);
+        }
+
+        return response()->json(['message' => "User not logged in!"], 401);
     }
 }

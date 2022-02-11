@@ -21,13 +21,13 @@ class AuthJwt extends BaseMiddleware
         {
             return response()->json([
                 'message' => 'Invalid token!'
-            ]);
+            ],400);
 
         }catch (JWTException $e)
         {
             return response()->json([
                 'message' => 'Empty token!'
-            ]);
+            ], 400);
         }
 
         return $next($request);

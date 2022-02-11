@@ -11,11 +11,14 @@ class AuthRepository
 
     public function getGuard(string $provider)
     {
-        if($provider == 'doctor')
+        if( $provider == 'doctor')
             return 'doctors';
 
-        if($provider == 'patient')
+        if( $provider == 'patient')
             return 'patients';
+
+//        if($provider == 'secretary')
+//            return 'secretaries';
 
         return false;
     }
